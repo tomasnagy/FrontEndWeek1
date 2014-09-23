@@ -9,8 +9,8 @@ function init() {
 
     if(checkPlaceholderExistence()) {
         var input = document.getElementsByTagName("input");
-        input.addEventListener("blur", onInputExit);
-        input.addEventListener("focus", inputFocus);
+        input.attachEvent("onblur", onInputExit);
+        input.attachEvent("focus", inputFocus);
     }
 
 
@@ -31,13 +31,13 @@ function btnClicked() {
 
 function checkPlaceholderExistence() {
     if(!Modernizr.input.placeholder) {
-        document.createElement("placeholder");
+        document.createElement("data-placeholder");
        var input = document.getElementsByTagName("input");
 
         for(var i = 0; i < input.length; i++) {
             if(input[i].value === "") {
-                var message = input[i].getAttribute("placeholder");
-                input[i].value = message.value;
+                var message = input[i].getAttribute("data-placeholder");
+                input[i].value = message;
             }
         }
         return true;
@@ -46,8 +46,8 @@ function checkPlaceholderExistence() {
 
 function onInputExit() {
     if(this.value === "") {
-        var message = this.getAttribute("placeholder");
-        this.value = message.value;
+        var message = this.getAttribute("data-placeholder");
+        this.value = message;
     }
 }
 
