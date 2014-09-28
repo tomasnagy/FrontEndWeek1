@@ -16,14 +16,14 @@ function init() {
         for(var i = 0; i < input.length; i++) {
             input[i].attachEvent("onblur", function() {
                 console.log(input[i]);
-                if(input[i].value === "") {
+                if(input.indexOf(i).value === "") {
                     console.log(this);
-                    var message = input[i].getAttribute("data-placeholder");
-                    input[i].value = message;
+                    var message = input.indexOf(i).getAttribute("data-placeholder");
+                    input.indexOf(i).value = message;
                 }
             });
             input[i].attachEvent("onfocus", function() {
-                input[i].value = "";
+                input.indexOf(i).value = "";
             });
         }
     }
@@ -46,12 +46,12 @@ function btnClicked() {
 
 function checkPlaceholderExistence() {
     if(!Modernizr.input.placeholder) {
-        document.createElement("data-placeholder");
+        document.createElement("placeholder");
 
 
         for(var i = 0; i < input.length; i++) {
             if(input[i].value === "") {
-                var message = input[i].getAttribute("data-placeholder");
+                var message = input[i].getAttribute("placeholder");
                 input[i].value = message;
             }
         }
@@ -63,7 +63,7 @@ function onInputExit(variable) {
     console.log("blur");
     if(variable.value === "") {
         console.log(this);
-        var message = variable.getAttribute("data-placeholder");
+        var message = variable.getAttribute("placeholder");
         variable.value = message;
     }
 }
