@@ -6,7 +6,12 @@
 
 var input = document.getElementsByTagName("input");
 
-init();
+document.attachEvent("onreadystatechange", function(){
+    if (document.readyState === "complete"){
+        document.detachEvent( "onreadystatechange", arguments.callee );
+        init();
+    }
+});
 
 function init() {
     var btn = document.getElementById("btnSubmit");
@@ -14,17 +19,16 @@ function init() {
 
     if(checkPlaceholderExistence()) {
         for(var i = 0; i < input.length; i++) {
-            input[i].attachEvent("onblur", function() {
-                console.log(input[i]);
-                if(input.indexOf(i).value === "") {
-                    console.log(this);
-                    var message = input.indexOf(i).getAttribute("data-placeholder");
-                    input.indexOf(i).value = message;
+            input[i].onblur = function() {
+
+                if(this.value === '') {
+                    var message = this.getAttribute("placeholder");
+                    this.value = message;
                 }
-            });
-            input[i].attachEvent("onfocus", function() {
-                input.indexOf(i).value = "";
-            });
+            };
+            input[i].onfocus = function() {
+                this.value = '';
+            };
         }
     }
 
